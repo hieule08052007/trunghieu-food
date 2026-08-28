@@ -1,0 +1,2423 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TRUNGHIEU FOOD — Japanese Restaurant</title>
+
+    <meta name="description"
+        content="TRUNGHIEU FOOD Japanese Restaurant - Tinh hoa ẩm thực Nhật Bản">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+
+        /* ==============================
+           RESET
+        ============================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #080807;
+            color: #f3eee5;
+            font-family: "Montserrat", sans-serif;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* ==============================
+           VARIABLES
+        ============================== */
+
+        :root {
+            --black: #080807;
+            --black-2: #0e0d0b;
+            --black-3: #151310;
+            --gold: #b9964f;
+            --gold-light: #dfc57b;
+            --white: #f5f0e7;
+            --muted: #9b968d;
+            --border: rgba(185, 150, 79, .25);
+        }
+
+        /* ==============================
+           SCROLLBAR
+        ============================== */
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #080807;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #80662e;
+            border-radius: 20px;
+        }
+
+        /* ==============================
+           LOADING
+        ============================== */
+
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #080807;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: .8s ease;
+        }
+
+        .loader-logo {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 42px;
+            letter-spacing: 8px;
+            color: var(--gold-light);
+        }
+
+        .loader-line {
+            width: 120px;
+            height: 1px;
+            background: var(--gold);
+            margin-top: 20px;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% {
+                transform: scaleX(0);
+                transform-origin: left;
+            }
+
+            50% {
+                transform: scaleX(1);
+                transform-origin: left;
+            }
+
+            51% {
+                transform-origin: right;
+            }
+
+            100% {
+                transform: scaleX(0);
+                transform-origin: right;
+            }
+        }
+
+        /* ==============================
+           NAVIGATION
+        ============================== */
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 82px;
+            z-index: 1000;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 5%;
+
+            border-bottom: 1px solid rgba(255,255,255,.05);
+
+            background: rgba(5,5,4,.72);
+            backdrop-filter: blur(14px);
+
+            transition: .4s ease;
+        }
+
+        header.scrolled {
+            height: 70px;
+            background: rgba(5,5,4,.95);
+            border-bottom-color: var(--border);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .logo-symbol {
+            width: 38px;
+            height: 38px;
+
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: var(--gold-light);
+            font-family: "Cormorant Garamond", serif;
+            font-size: 21px;
+        }
+
+        .logo-text {
+            line-height: 1;
+        }
+
+        .logo-name {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 23px;
+            letter-spacing: 3px;
+            color: #eee6d5;
+        }
+
+        .logo-sub {
+            font-size: 7px;
+            letter-spacing: 3px;
+            color: var(--gold);
+            margin-top: 5px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 34px;
+        }
+
+        nav a {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #bdb8ae;
+            position: relative;
+            transition: .3s;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -9px;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: .3s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--gold-light);
+        }
+
+        nav a:hover::after,
+        nav a.active::after {
+            width: 100%;
+        }
+
+        .reservation-btn {
+            padding: 13px 20px;
+            border: 1px solid var(--gold);
+            border-radius: 30px;
+
+            color: var(--gold-light);
+            font-size: 9px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+
+            transition: .35s;
+        }
+
+        .reservation-btn:hover {
+            background: var(--gold);
+            color: #080807;
+        }
+
+        .mobile-menu {
+            display: none;
+            cursor: pointer;
+            font-size: 28px;
+            color: var(--gold);
+        }
+
+        /* ==============================
+           HERO
+        ============================== */
+
+        .hero {
+            min-height: 100vh;
+            position: relative;
+
+            display: flex;
+            align-items: center;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(5,5,4,.98) 0%,
+                    rgba(5,5,4,.75) 40%,
+                    rgba(5,5,4,.22) 100%
+                ),
+                linear-gradient(
+                    0deg,
+                    #080807 0%,
+                    transparent 35%
+                ),
+                url("https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=2000&q=90");
+
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            background:
+                radial-gradient(
+                    circle at 75% 45%,
+                    rgba(184,145,61,.13),
+                    transparent 32%
+                );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 90%;
+            max-width: 1300px;
+            margin: auto;
+
+            padding-top: 80px;
+        }
+
+        .eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+
+            color: var(--gold-light);
+            font-size: 10px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+
+            margin-bottom: 25px;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 50px;
+            height: 1px;
+            background: var(--gold);
+        }
+
+        .hero h1 {
+            max-width: 750px;
+
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(60px, 8vw, 120px);
+            font-weight: 500;
+            line-height: .86;
+
+            letter-spacing: -2px;
+        }
+
+        .hero h1 span {
+            color: var(--gold-light);
+            font-style: italic;
+        }
+
+        .hero-description {
+            max-width: 480px;
+            color: #aaa59c;
+
+            font-size: 13px;
+            line-height: 2;
+
+            margin-top: 32px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 35px;
+        }
+
+        .btn-primary,
+        .btn-outline {
+            padding: 15px 25px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: .3s;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: #090806;
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-3px);
+        }
+
+        .btn-outline {
+            border: 1px solid rgba(255,255,255,.25);
+            color: #eee;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold-light);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 35px;
+            left: 5%;
+
+            display: flex;
+            align-items: center;
+            gap: 15px;
+
+            color: #8f8a80;
+            font-size: 8px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .scroll-line {
+            width: 60px;
+            height: 1px;
+            background: var(--gold);
+        }
+
+        /* ==============================
+           GENERAL
+        ============================== */
+
+        section {
+            position: relative;
+            padding: 120px 5%;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1300px;
+            margin: auto;
+        }
+
+        .section-heading {
+            margin-bottom: 65px;
+        }
+
+        .section-label {
+            color: var(--gold);
+            font-size: 9px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .section-heading h2 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(45px, 6vw, 75px);
+            font-weight: 500;
+            line-height: .95;
+        }
+
+        .section-heading h2 span {
+            color: var(--gold-light);
+            font-style: italic;
+        }
+
+        .section-description {
+            max-width: 560px;
+            margin-top: 20px;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 2;
+        }
+
+        /* ==============================
+           INTRO
+        ============================== */
+
+        .intro {
+            background: #090908;
+            overflow: hidden;
+        }
+
+        .intro::before {
+            content: "和";
+            position: absolute;
+            right: 4%;
+            top: 40px;
+
+            font-family: serif;
+            font-size: 300px;
+
+            color: rgba(185,150,79,.025);
+        }
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .intro-images {
+            position: relative;
+            min-height: 620px;
+        }
+
+        .intro-image-main {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 72%;
+            height: 510px;
+
+            object-fit: cover;
+
+            filter: brightness(.75);
+
+            border: 1px solid rgba(185,150,79,.2);
+        }
+
+        .intro-image-small {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+
+            width: 48%;
+            height: 300px;
+
+            object-fit: cover;
+
+            border: 8px solid #090908;
+            outline: 1px solid var(--border);
+
+            filter: brightness(.7);
+        }
+
+        .intro-content p {
+            color: var(--muted);
+            line-height: 2;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        .signature {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 32px;
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        /* ==============================
+           MENU
+        ============================== */
+
+        .menu-section {
+            background:
+                radial-gradient(
+                    circle at 10% 50%,
+                    rgba(185,150,79,.05),
+                    transparent 25%
+                ),
+                #0d0c0a;
+        }
+
+        .menu-top {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .menu-tabs {
+            display: flex;
+            gap: 25px;
+            border-bottom: 1px solid rgba(255,255,255,.1);
+            margin-bottom: 35px;
+        }
+
+        .menu-tab {
+            border: none;
+            background: transparent;
+            color: #777269;
+
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+
+            padding: 0 0 14px;
+            cursor: pointer;
+
+            position: relative;
+        }
+
+        .menu-tab.active {
+            color: var(--gold-light);
+        }
+
+        .menu-tab.active::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            width: 100%;
+            height: 1px;
+            background: var(--gold);
+        }
+
+        .menu-layout {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 50px;
+        }
+
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-item {
+            display: grid;
+            grid-template-columns: 90px 1fr auto;
+            align-items: center;
+
+            gap: 20px;
+
+            padding: 22px 0;
+
+            border-bottom: 1px solid rgba(255,255,255,.07);
+
+            transition: .3s;
+        }
+
+        .menu-item:hover {
+            padding-left: 10px;
+            border-bottom-color: var(--border);
+        }
+
+        .menu-item-image {
+            width: 90px;
+            height: 70px;
+            object-fit: cover;
+            filter: brightness(.7);
+        }
+
+        .menu-item h3 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 22px;
+            font-weight: 500;
+            margin-bottom: 7px;
+        }
+
+        .menu-item p {
+            color: #79756d;
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+        .price {
+            color: var(--gold-light);
+            font-family: "Cormorant Garamond", serif;
+            font-size: 21px;
+            white-space: nowrap;
+        }
+
+        .featured-dish {
+            border: 1px solid var(--border);
+            background: #11100d;
+            padding: 10px;
+        }
+
+        .featured-dish img {
+            width: 100%;
+            height: 330px;
+            object-fit: cover;
+            filter: brightness(.7);
+        }
+
+        .featured-info {
+            padding: 22px 15px 15px;
+        }
+
+        .featured-tag {
+            font-size: 8px;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .featured-info h3 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 30px;
+            font-weight: 500;
+            margin: 8px 0;
+        }
+
+        .featured-info p {
+            color: #77736b;
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        /* ==============================
+           EXPERIENCE
+        ============================== */
+
+        .experience {
+            min-height: 650px;
+
+            display: flex;
+            align-items: center;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(7,7,6,.95),
+                    rgba(7,7,6,.65),
+                    rgba(7,7,6,.4)
+                ),
+                url("https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=2000&q=90");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .experience-content {
+            max-width: 600px;
+        }
+
+        .experience h2 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(50px, 7vw, 90px);
+            font-weight: 500;
+            line-height: .9;
+        }
+
+        .experience h2 span {
+            color: var(--gold-light);
+            font-style: italic;
+        }
+
+        .experience p {
+            margin-top: 25px;
+            color: #a8a39b;
+            font-size: 13px;
+            line-height: 2;
+        }
+
+        /* ==============================
+           GALLERY
+        ============================== */
+
+        .gallery {
+            background: #080807;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: 230px;
+            gap: 12px;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-item:nth-child(1) {
+            grid-column: span 7;
+            grid-row: span 2;
+        }
+
+        .gallery-item:nth-child(2) {
+            grid-column: span 5;
+        }
+
+        .gallery-item:nth-child(3) {
+            grid-column: span 5;
+        }
+
+        .gallery-item:nth-child(4) {
+            grid-column: span 4;
+        }
+
+        .gallery-item:nth-child(5) {
+            grid-column: span 4;
+        }
+
+        .gallery-item:nth-child(6) {
+            grid-column: span 4;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(.65);
+            transition: 1s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+            filter: brightness(.9);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+
+            display: flex;
+            align-items: flex-end;
+
+            padding: 25px;
+
+            background: linear-gradient(
+                transparent 40%,
+                rgba(0,0,0,.8)
+            );
+
+            opacity: 0;
+            transition: .4s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay span {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 25px;
+            color: #fff;
+        }
+
+        /* ==============================
+           RESERVATION
+        ============================== */
+
+        .reservation {
+            background:
+                radial-gradient(
+                    circle at center,
+                    rgba(185,150,79,.08),
+                    transparent 40%
+                ),
+                #0c0b09;
+            text-align: center;
+        }
+
+        .reservation-content {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .reservation h2 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(50px, 7vw, 90px);
+            font-weight: 500;
+        }
+
+        .reservation h2 span {
+            color: var(--gold-light);
+            font-style: italic;
+        }
+
+        .reservation p {
+            max-width: 550px;
+            margin: 25px auto 40px;
+
+            color: var(--muted);
+            line-height: 2;
+            font-size: 13px;
+        }
+
+        .reservation-form {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 17px;
+
+            background: rgba(255,255,255,.03);
+            border: 1px solid rgba(255,255,255,.1);
+
+            color: white;
+            outline: none;
+
+            font-size: 11px;
+        }
+
+        .form-input:focus {
+            border-color: var(--gold);
+        }
+
+        .form-button {
+            grid-column: span 3;
+
+            padding: 18px;
+
+            border: none;
+            background: var(--gold);
+            color: #080807;
+
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .form-button:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+
+        /* ==============================
+           FOOTER
+        ============================== */
+
+        footer {
+            padding: 80px 5% 35px;
+            background: #050504;
+            border-top: 1px solid rgba(255,255,255,.07);
+        }
+
+        .footer-grid {
+            max-width: 1300px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+        }
+
+        .footer-brand p {
+            max-width: 350px;
+            color: #706c64;
+            font-size: 11px;
+            line-height: 2;
+            margin-top: 20px;
+        }
+
+        .footer-column h4 {
+            font-size: 9px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .footer-column a,
+        .footer-column p {
+            display: block;
+            color: #817c73;
+            font-size: 11px;
+            margin-bottom: 12px;
+            line-height: 1.7;
+            transition: .3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--gold-light);
+        }
+
+        .copyright {
+            max-width: 1300px;
+            margin: 60px auto 0;
+            padding-top: 25px;
+
+            border-top: 1px solid rgba(255,255,255,.07);
+
+            color: #4e4a44;
+            font-size: 9px;
+            letter-spacing: 1px;
+
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* ==============================
+           REVEAL ANIMATION
+        ============================== */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition:
+                opacity .9s ease,
+                transform .9s ease;
+        }
+
+        .reveal.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 {
+            transition-delay: .15s;
+        }
+
+        .delay-2 {
+            transition-delay: .3s;
+        }
+
+        .delay-3 {
+            transition-delay: .45s;
+        }
+
+        /* ==============================
+           RESPONSIVE
+        ============================== */
+
+        @media (max-width: 1000px) {
+
+            nav {
+                gap: 18px;
+            }
+
+            .menu-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-dish {
+                max-width: 500px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+        @media (max-width: 760px) {
+
+            header {
+                height: 70px;
+                padding: 0 6%;
+            }
+
+            nav,
+            header .reservation-btn {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            nav.mobile-open {
+                position: absolute;
+                top: 70px;
+                left: 0;
+
+                width: 100%;
+
+                padding: 25px;
+
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 22px;
+
+                background: rgba(7,7,6,.98);
+                border-top: 1px solid var(--border);
+            }
+
+            .hero {
+                min-height: 90vh;
+                background-position: 65% center;
+            }
+
+            .hero-content {
+                padding-top: 60px;
+            }
+
+            .hero h1 {
+                font-size: 64px;
+            }
+
+            section {
+                padding: 80px 6%;
+            }
+
+            .intro-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .intro-images {
+                min-height: 500px;
+            }
+
+            .intro-image-main {
+                height: 420px;
+            }
+
+            .menu-top {
+                display: block;
+            }
+
+            .menu-tabs {
+                overflow-x: auto;
+            }
+
+            .menu-item {
+                grid-template-columns: 70px 1fr;
+            }
+
+            .menu-item-image {
+                width: 70px;
+                height: 60px;
+            }
+
+            .price {
+                grid-column: 2;
+            }
+
+            .gallery-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-auto-rows: 180px;
+            }
+
+            .gallery-item:nth-child(n) {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            .gallery-item:first-child {
+                grid-column: span 2;
+                grid-row: span 2;
+            }
+
+            .reservation-form {
+                grid-template-columns: 1fr;
+            }
+
+            .form-button {
+                grid-column: span 1;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .copyright {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .logo-name {
+                font-size: 19px;
+            }
+
+            .logo-sub {
+                font-size: 6px;
+            }
+
+            .hero h1 {
+                font-size: 55px;
+            }
+
+            .hero-description {
+                font-size: 12px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .intro-images {
+                min-height: 430px;
+            }
+
+            .intro-image-main {
+                width: 82%;
+                height: 350px;
+            }
+
+            .intro-image-small {
+                width: 55%;
+                height: 220px;
+            }
+
+            .menu-item h3 {
+                font-size: 18px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- ==============================
+         LOADING
+    ============================== -->
+
+    <div id="loader">
+
+        <div class="loader-logo">
+            TRUNGHIEU FOOD
+        </div>
+
+        <div class="loader-line"></div>
+
+    </div>
+
+
+    <!-- ==============================
+         HEADER
+    ============================== -->
+
+    <header id="header">
+
+        <a href="#home" class="logo">
+
+            <div class="logo-symbol">
+                和
+            </div>
+
+            <div class="logo-text">
+
+                <div class="logo-name">
+                    TRUNGHIEU FOOD
+                </div>
+
+                <div class="logo-sub">
+                    JAPANESE RESTAURANT
+                </div>
+
+            </div>
+
+        </a>
+
+
+        <nav id="navigation">
+
+            <a href="#home" class="active">
+                Trang chủ
+            </a>
+
+            <a href="#menu">
+                Thực đơn
+            </a>
+
+            <a href="#about">
+                Về chúng tôi
+            </a>
+
+            <a href="#gallery">
+                Thư viện
+            </a>
+
+            <a href="#reservation">
+                Đặt bàn
+            </a>
+
+            <a href="#contact">
+                Liên hệ
+            </a>
+
+        </nav>
+
+
+        <a href="#reservation" class="reservation-btn">
+            Đặt bàn ngay
+        </a>
+
+
+        <div class="mobile-menu" id="mobileMenu">
+            ☰
+        </div>
+
+    </header>
+
+
+    <!-- ==============================
+         HERO
+    ============================== -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <div class="eyebrow reveal">
+                Tinh hoa Nhật Bản
+            </div>
+
+            <h1 class="reveal delay-1">
+
+                Nghệ thuật
+                <br>
+
+                <span>ẩm thực</span>
+
+                Nhật Bản
+
+            </h1>
+
+            <p class="hero-description reveal delay-2">
+
+                Một hành trình vị giác được tạo nên từ những nguyên liệu
+                tinh tuyển nhất, kỹ thuật truyền thống và tinh thần
+                Omotenashi của người Nhật.
+
+            </p>
+
+
+            <div class="hero-buttons reveal delay-3">
+
+                <a href="#menu" class="btn-primary">
+                    Khám phá thực đơn
+                </a>
+
+                <a href="#about" class="btn-outline">
+                    Khám phá nhà hàng
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-scroll">
+
+            <span class="scroll-line"></span>
+
+            Cuộn để khám phá
+
+        </div>
+
+    </section>
+
+
+    <!-- ==============================
+         ABOUT
+    ============================== -->
+
+    <section class="intro" id="about">
+
+        <div class="container">
+
+            <div class="intro-grid">
+
+                <div class="intro-images reveal">
+
+                    <img
+                        class="intro-image-main"
+                        src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1200&q=90"
+                        alt="Japanese restaurant">
+
+                    <img
+                        class="intro-image-small"
+                        src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?auto=format&fit=crop&w=900&q=90"
+                        alt="Sushi">
+
+                </div>
+
+
+                <div class="intro-content">
+
+                    <div class="section-heading reveal">
+
+                        <div class="section-label">
+                            Câu chuyện của chúng tôi
+                        </div>
+
+                        <h2>
+                            Nơi truyền thống
+                            <br>
+                            gặp <span>sự tinh tế</span>
+                        </h2>
+
+                    </div>
+
+
+                    <p class="reveal delay-1">
+
+                        TRUNGHIEU FOOD được tạo nên từ tình yêu dành cho
+                        văn hóa và ẩm thực Nhật Bản.
+
+                    </p>
+
+
+                    <p class="reveal delay-2">
+
+                        Chúng tôi lựa chọn nguyên liệu theo mùa,
+                        chú trọng từng chi tiết trong quá trình chế biến
+                        để mang đến những món ăn giữ trọn hương vị tự nhiên.
+
+                    </p>
+
+
+                    <p class="reveal delay-3">
+
+                        Không gian được thiết kế theo tinh thần Nhật Bản
+                        đương đại — tối giản, ấm áp và đầy chiều sâu.
+
+                    </p>
+
+
+                    <div class="signature reveal delay-3">
+                        TRUNGHIEU FOOD
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==============================
+         MENU
+    ============================== -->
+
+    <section class="menu-section" id="menu">
+
+        <div class="container">
+
+            <div class="menu-top">
+
+                <div class="section-heading reveal">
+
+                    <div class="section-label">
+                        Thực đơn của chúng tôi
+                    </div>
+
+                    <h2>
+                        Thực đơn
+                        <br>
+                        <span>ẩm thực</span>
+                    </h2>
+
+                    <p class="section-description">
+
+                        Những món ăn được tuyển chọn kỹ lưỡng,
+                        cân bằng giữa hương vị, hình thức và tinh thần
+                        ẩm thực Nhật Bản.
+
+                    </p>
+
+                </div>
+
+
+                <div class="menu-tabs reveal">
+
+                    <button
+                        class="menu-tab active"
+                        data-category="all">
+                        Tất cả
+                    </button>
+
+                    <button
+                        class="menu-tab"
+                        data-category="sushi">
+                        Sushi
+                    </button>
+
+                    <button
+                        class="menu-tab"
+                        data-category="sashimi">
+                        Sashimi
+                    </button>
+
+                    <button
+                        class="menu-tab"
+                        data-category="special">
+                        Đặc biệt
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="menu-layout">
+
+
+                <div class="menu-list">
+
+
+                    <div class="menu-item reveal"
+                        data-category="special">
+
+                        <img
+                            class="menu-item-image"
+                            src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=500&q=80"
+                            alt="Wagyu">
+
+                        <div>
+
+                            <h3>
+                                Miyazaki A5 Wagyu Tataki
+                            </h3>
+
+                            <p>
+                                Wagyu A5 áp chảo nhanh,
+                                chip tỏi vàng và ponzu yuzu.
+                            </p>
+
+                        </div>
+
+                        <div class="price">
+                            $42
+                        </div>
+
+                    </div>
+
+
+                    <div class="menu-item reveal"
+                        data-category="sushi">
+
+                        <img
+                            class="menu-item-image"
+                            src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=500&q=80"
+                            alt="Sushi">
+
+                        <div>
+
+                            <h3>
+                                Toro Sushi
+                            </h3>
+
+                            <p>
+                                Cá ngừ Toro béo mềm,
+                                cơm sushi Shari truyền thống.
+                            </p>
+
+                        </div>
+
+                        <div class="price">
+                            $18
+                        </div>
+
+                    </div>
+
+
+                    <div class="menu-item reveal"
+                        data-category="sashimi">
+
+                        <img
+                            class="menu-item-image"
+                            src="https://images.unsplash.com/photo-1534482421-64566f976cfa?auto=format&fit=crop&w=500&q=80"
+                            alt="Sashimi">
+
+                        <div>
+
+                            <h3>
+                                Premium Sashimi
+                            </h3>
+
+                            <p>
+                                Tuyển chọn sashimi theo mùa
+                                từ những nguyên liệu tươi ngon nhất.
+                            </p>
+
+                        </div>
+
+                        <div class="price">
+                            $35
+                        </div>
+
+                    </div>
+
+
+                    <div class="menu-item reveal"
+                        data-category="special">
+
+                        <img
+                            class="menu-item-image"
+                            src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=500&q=80"
+                            alt="Crab">
+
+                        <div>
+
+                            <h3>
+                                Soft Shell Crab Karaage
+                            </h3>
+
+                            <p>
+                                Cua mai mềm chiên giòn
+                                cùng sốt yuzu cay nhẹ.
+                            </p>
+
+                        </div>
+
+                        <div class="price">
+                            $16
+                        </div>
+
+                    </div>
+
+
+                    <div class="menu-item reveal"
+                        data-category="sushi">
+
+                        <img
+                            class="menu-item-image"
+                            src="https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?auto=format&fit=crop&w=500&q=80"
+                            alt="Salmon">
+
+                        <div>
+
+                            <h3>
+                                Salmon Aburi
+                            </h3>
+
+                            <p>
+                                Cá hồi áp lửa, trứng cá và
+                                sốt ponzu đặc biệt.
+                            </p>
+
+                        </div>
+
+                        <div class="price">
+                            $15
+                        </div>
+
+                    </div>
+
+
+                    <div class="menu-item reveal"
+                        data-category="special">
+
+                        <img
+                            class="menu-item-image"
+                            src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?auto=format&fit=crop&w=500&q=80"
+                            alt="Edamame">
+
+                        <div>
+
+                            <h3>
+                                Truffle Sea Salt Edamame
+                            </h3>
+
+                            <p>
+                                Đậu nành non hấp cùng dầu
+                                truffle trắng và muối biển.
+                            </p>
+
+                        </div>
+
+                        <div class="price">
+                            $7.5
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="featured-dish reveal">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&w=1000&q=90"
+                        alt="Featured Sushi">
+
+                    <div class="featured-info">
+
+                        <div class="featured-tag">
+                            Chef's recommendation
+                        </div>
+
+                        <h3>
+                            Omakase Experience
+                        </h3>
+
+                        <p>
+
+                            Trải nghiệm Omakase được xây dựng
+                            riêng theo mùa, nơi thực khách hoàn toàn
+                            tin tưởng vào lựa chọn của Chef.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==============================
+         EXPERIENCE
+    ============================== -->
+
+    <section class="experience">
+
+        <div class="container">
+
+            <div class="experience-content">
+
+                <div class="section-label reveal">
+                    Trải nghiệm
+                </div>
+
+                <h2 class="reveal delay-1">
+
+                    Không chỉ là
+                    <br>
+
+                    một bữa ăn.
+                    <br>
+
+                    Đó là <span>một trải nghiệm.</span>
+
+                </h2>
+
+                <p class="reveal delay-2">
+
+                    Từ ánh sáng, âm thanh, cách phục vụ cho tới
+                    từng món ăn trên bàn — tất cả được thiết kế
+                    để tạo nên một buổi tối đáng nhớ.
+
+                </p>
+
+                <div class="hero-buttons reveal delay-3">
+
+                    <a href="#reservation" class="btn-primary">
+                        Đặt bàn ngay
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==============================
+         GALLERY
+    ============================== -->
+
+    <section class="gallery" id="gallery">
+
+        <div class="container">
+
+            <div class="section-heading reveal">
+
+                <div class="section-label">
+                    Thư viện
+                </div>
+
+                <h2>
+                    Một chút
+                    <span>hương vị</span>
+                </h2>
+
+                <p class="section-description">
+
+                    Không gian, món ăn và những khoảnh khắc
+                    tạo nên trải nghiệm TRUNGHIEU FOOD.
+
+                </p>
+
+            </div>
+
+
+            <div class="gallery-grid">
+
+
+                <div class="gallery-item reveal">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=1400&q=90"
+                        alt="Sushi">
+
+                    <div class="gallery-overlay">
+                        <span>Sushi Selection</span>
+                    </div>
+
+                </div>
+
+
+                <div class="gallery-item reveal delay-1">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1534482421-64566f976cfa?auto=format&fit=crop&w=1000&q=90"
+                        alt="Sashimi">
+
+                    <div class="gallery-overlay">
+                        <span>Fresh Sashimi</span>
+                    </div>
+
+                </div>
+
+
+                <div class="gallery-item reveal delay-2">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1000&q=90"
+                        alt="Restaurant">
+
+                    <div class="gallery-overlay">
+                        <span>Our Space</span>
+                    </div>
+
+                </div>
+
+
+                <div class="gallery-item reveal">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=1000&q=90"
+                        alt="Japanese Food">
+
+                    <div class="gallery-overlay">
+                        <span>Chef's Selection</span>
+                    </div>
+
+                </div>
+
+
+                <div class="gallery-item reveal delay-1">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1000&q=90"
+                        alt="Japanese dish">
+
+                    <div class="gallery-overlay">
+                        <span>Signature Dish</span>
+                    </div>
+
+                </div>
+
+
+                <div class="gallery-item reveal delay-2">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?auto=format&fit=crop&w=1000&q=90"
+                        alt="Japanese food">
+
+                    <div class="gallery-overlay">
+                        <span>Dining Experience</span>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==============================
+         RESERVATION
+    ============================== -->
+
+    <section class="reservation" id="reservation">
+
+        <div class="container">
+
+            <div class="reservation-content">
+
+                <div class="section-label reveal">
+                    Đặt bàn
+                </div>
+
+                <h2 class="reveal delay-1">
+
+                    Hãy để chúng tôi
+                    <br>
+
+                    chuẩn bị một
+                    <span>buổi tối đặc biệt.</span>
+
+                </h2>
+
+                <p class="reveal delay-2">
+
+                    Đặt bàn trước để chúng tôi có thể chuẩn bị
+                    không gian và trải nghiệm tốt nhất dành cho bạn.
+
+                </p>
+
+
+                <form
+                    class="reservation-form reveal delay-3"
+                    id="reservationForm">
+
+                    <input
+                        class="form-input"
+                        id="bookingName"
+                        name="name"
+                        type="text"
+                        placeholder="Họ và tên"
+                        autocomplete="name"
+                        required>
+
+                    <input
+                        class="form-input"
+                        id="bookingPhone"
+                        name="phone"
+                        type="tel"
+                        placeholder="Số điện thoại"
+                        autocomplete="tel"
+                        required>
+
+                    <input
+                        class="form-input"
+                        id="bookingGuests"
+                        name="guests"
+                        type="number"
+                        min="1"
+                        max="50"
+                        placeholder="Số người"
+                        required>
+
+                    <input
+                        class="form-input"
+                        id="bookingDate"
+                        name="date"
+                        type="date"
+                        required>
+
+                    <input
+                        class="form-input"
+                        id="bookingTime"
+                        name="time"
+                        type="time"
+                        required>
+
+                    <input
+                        class="form-input"
+                        id="bookingEmail"
+                        name="email"
+                        type="email"
+                        placeholder="Email"
+                        autocomplete="email">
+
+                    <button
+                        class="form-button"
+                        type="submit">
+
+                        Gửi yêu cầu đặt bàn
+
+                    </button>
+
+                    <div id="reservationMessage" style="grid-column:1/-1;text-align:center;margin-top:10px;min-height:24px;font-size:13px;"></div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==============================
+         FOOTER
+    ============================== -->
+
+    <footer id="contact">
+
+        <div class="footer-grid">
+
+
+            <div class="footer-brand">
+
+                <a href="#home" class="logo">
+
+                    <div class="logo-symbol">
+                        和
+                    </div>
+
+                    <div class="logo-text">
+
+                        <div class="logo-name">
+                            TRUNGHIEU FOOD
+                        </div>
+
+                        <div class="logo-sub">
+                            JAPANESE RESTAURANT
+                        </div>
+
+                    </div>
+
+                </a>
+
+                <p>
+
+                    Tinh hoa ẩm thực Nhật Bản trong
+                    một không gian đương đại, tinh tế
+                    và đầy cảm xúc.
+
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Khám phá
+                </h4>
+
+                <a href="#home">
+                    Trang chủ
+                </a>
+
+                <a href="#menu">
+                    Thực đơn
+                </a>
+
+                <a href="#about">
+                    Về chúng tôi
+                </a>
+
+                <a href="#gallery">
+                    Thư viện
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Liên hệ
+                </h4>
+
+                <p>
+                    18 Gia Sàng
+                </p>
+
+                <p>
+                    TP. Thai Nguyen
+                </p>
+
+                <p>
+                    +84 859 080 507
+                </p>
+
+                <p>
+                    letrunghieu08052007@gmail.com
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Giờ mở cửa
+                </h4>
+
+                <p>
+                    Thứ 2 — Thứ 6
+                </p>
+
+                <p>
+                    11:00 — 14:00
+                </p>
+
+                <p>
+                    17:30 — 22:30
+                </p>
+
+                <p>
+                    Thứ 7 — Chủ nhật
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="copyright">
+
+            <span>
+                © 2026 TRUNGHIEU FOOD. All Rights Reserved.
+            </span>
+
+            <span>
+                Japanese Dining Experience
+            </span>
+
+        </div>
+
+    </footer>
+
+
+    <!-- ==============================
+         JAVASCRIPT
+    ============================== -->
+
+    <script>
+
+        /* ==============================
+           LOADER
+        ============================== */
+
+        window.addEventListener("load", function () {
+
+            const loader = document.getElementById("loader");
+
+            setTimeout(() => {
+
+                loader.style.opacity = "0";
+                loader.style.visibility = "hidden";
+
+                document
+                    .querySelectorAll(".hero .reveal")
+                    .forEach(el => {
+                        el.classList.add("show");
+                    });
+
+            }, 700);
+
+        });
+
+
+        /* ==============================
+           HEADER SCROLL
+        ============================== */
+
+        const header = document.getElementById("header");
+
+        window.addEventListener("scroll", () => {
+
+            if (window.scrollY > 60) {
+                header.classList.add("scrolled");
+            } else {
+                header.classList.remove("scrolled");
+            }
+
+        });
+
+
+        /* ==============================
+           MOBILE MENU
+        ============================== */
+
+        const mobileMenu =
+            document.getElementById("mobileMenu");
+
+        const navigation =
+            document.getElementById("navigation");
+
+        mobileMenu.addEventListener("click", () => {
+
+            navigation.classList.toggle("mobile-open");
+
+        });
+
+
+        navigation
+            .querySelectorAll("a")
+            .forEach(link => {
+
+                link.addEventListener("click", () => {
+
+                    navigation.classList.remove("mobile-open");
+
+                });
+
+            });
+
+
+        /* ==============================
+           SCROLL REVEAL
+        ============================== */
+
+        const revealElements =
+            document.querySelectorAll(".reveal");
+
+        const observer =
+            new IntersectionObserver(
+
+                (entries) => {
+
+                    entries.forEach(entry => {
+
+                        if (entry.isIntersecting) {
+
+                            entry.target.classList.add("show");
+
+                        }
+
+                    });
+
+                },
+
+                {
+                    threshold: 0.12
+                }
+
+            );
+
+
+        revealElements.forEach(element => {
+
+            observer.observe(element);
+
+        });
+
+
+        /* ==============================
+           MENU FILTER
+        ============================== */
+
+        const menuTabs =
+            document.querySelectorAll(".menu-tab");
+
+        const menuItems =
+            document.querySelectorAll(".menu-item");
+
+
+        menuTabs.forEach(tab => {
+
+            tab.addEventListener("click", () => {
+
+                menuTabs.forEach(item => {
+
+                    item.classList.remove("active");
+
+                });
+
+                tab.classList.add("active");
+
+
+                const category =
+                    tab.dataset.category;
+
+
+                menuItems.forEach(item => {
+
+                    const itemCategory =
+                        item.dataset.category;
+
+
+                    if (
+                        category === "all" ||
+                        category === itemCategory
+                    ) {
+
+                        item.style.display = "grid";
+
+                        setTimeout(() => {
+                            item.style.opacity = "1";
+                        }, 50);
+
+                    } else {
+
+                        item.style.opacity = "0";
+
+                        setTimeout(() => {
+                            item.style.display = "none";
+                        }, 250);
+
+                    }
+
+                });
+
+            });
+
+        });
+
+
+        /* ==============================
+           RESERVATION FORM
+        ============================== */
+
+        const reservationForm =
+            document.getElementById("reservationForm");
+
+        const reservationMessage =
+            document.getElementById("reservationMessage");
+
+        reservationForm.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+                const button = reservationForm.querySelector(".form-button");
+                const formData = new FormData(reservationForm);
+                const data = Object.fromEntries(formData.entries());
+
+                button.disabled = true;
+                button.textContent = "ĐANG GỬI...";
+                reservationMessage.textContent = "";
+
+                try {
+                    const response = await fetch("/api/bookings", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(data)
+                    });
+
+                    const result = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(result.message || "Không thể gửi yêu cầu.");
+                    }
+
+                    button.textContent = "ĐÃ NHẬN YÊU CẦU ✓";
+                    button.style.background = "#dfc57b";
+                    reservationMessage.style.color = "#dfc57b";
+                    reservationMessage.textContent = "Đặt bàn thành công. Nhà hàng sẽ xác nhận với bạn sớm nhất.";
+                    reservationForm.reset();
+
+                } catch (error) {
+                    button.textContent = "GỬI LẠI YÊU CẦU";
+                    button.style.background = "";
+                    reservationMessage.style.color = "#e88989";
+                    reservationMessage.textContent = error.message || "Có lỗi xảy ra. Vui lòng thử lại.";
+
+                } finally {
+                    button.disabled = false;
+                }
+            }
+        );
+
+
+        /* ==============================
+           ACTIVE NAVIGATION
+        ============================== */
+
+        const sections =
+            document.querySelectorAll("section[id]");
+
+        const navLinks =
+            document.querySelectorAll(
+                "nav a"
+            );
+
+
+        window.addEventListener("scroll", () => {
+
+            let current = "";
+
+            sections.forEach(section => {
+
+                const sectionTop =
+                    section.offsetTop - 150;
+
+                if (
+                    window.scrollY >= sectionTop
+                ) {
+
+                    current =
+                        section.getAttribute("id");
+
+                }
+
+            });
+
+
+            navLinks.forEach(link => {
+
+                link.classList.remove("active");
+
+                if (
+                    link.getAttribute("href") ===
+                    "#" + current
+                ) {
+
+                    link.classList.add("active");
+
+                }
+
+            });
+
+        });
+
+
+        /* ==============================
+           PARALLAX HERO
+        ============================== */
+
+        window.addEventListener("scroll", () => {
+
+            const hero =
+                document.querySelector(".hero");
+
+            const scroll =
+                window.scrollY;
+
+            if (scroll < window.innerHeight) {
+
+                hero.style.backgroundPosition =
+                    `center ${scroll * 0.25}px`;
+
+            }
+
+        });
+
+
+    </script>
+
+</body>
+</html>

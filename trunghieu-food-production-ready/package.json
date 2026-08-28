@@ -1,0 +1,16 @@
+{
+  "name": "trunghieu-food-booking",
+  "version": "2.0.0",
+  "private": true,
+  "description": "TRUNGHIEU FOOD - website + admin dashboard quản lý đặt bàn",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "pg": "^8.16.3"
+  }
+}
