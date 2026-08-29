@@ -1,20 +1,894 @@
 <!doctype html>
-<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TRUNGHIEU FOOD — Quản lý đặt bàn</title>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TRUNGHIEU FOOD — Quản lý đặt bàn</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;background:#080807;color:#eee;font-family:Arial,sans-serif}.wrap{max-width:1250px;margin:auto;padding:28px 18px}.top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #3a3020;padding-bottom:18px}.brand{font:26px Georgia,serif;letter-spacing:3px;color:#dfc57b}.sub{color:#888;font-size:12px;margin-top:5px}.btn{border:1px solid #8d7139;background:#17140f;color:#dfc57b;padding:10px 15px;cursor:pointer}.login{max-width:420px;margin:110px auto;background:#111;padding:32px;border:1px solid #3a3020}.login h1{font:32px Georgia,serif}.input{width:100%;padding:14px;margin:8px 0 16px;background:#0b0b0a;border:1px solid #3a3a36;color:#fff}.gold{color:#dfc57b}.hidden{display:none}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:25px 0}.stat{background:#111;border:1px solid #25231f;padding:18px}.stat b{font-size:25px}.stat span{display:block;color:#888;font-size:11px;margin-top:5px}.tablebox{overflow:auto;background:#111;border:1px solid #25231f}table{width:100%;border-collapse:collapse;min-width:900px}th,td{padding:14px;border-bottom:1px solid #272522;text-align:left;font-size:13px}th{color:#dfc57b;font-size:10px;letter-spacing:1px}.status{padding:5px 8px;border:1px solid #555;font-size:10px}.pending{color:#e4bd68}.confirmed{color:#8fd19e}.rejected{color:#e48b8b}.completed{color:#9ab9df}.actions button{margin:2px}.empty{text-align:center;color:#777;padding:45px}@media(max-width:700px){.stats{grid-template-columns:1fr 1fr}.top{gap:15px}.brand{font-size:20px}}
-</style></head><body>
-<div id="login" class="login"><div class="gold">TRUNGHIEU FOOD</div><h1>Quản lý đặt bàn</h1><p style="color:#888">Đăng nhập khu vực dành cho chủ website.</p><input id="password" class="input" type="password" placeholder="Mật khẩu admin"><button class="btn" style="width:100%" onclick="login()">ĐĂNG NHẬP</button><p id="loginMsg" style="color:#e88989"></p></div>
-<div id="app" class="wrap hidden"><div class="top"><div><div class="brand">TRUNGHIEU FOOD</div><div class="sub">ADMIN • QUẢN LÝ ĐẶT BÀN</div></div><div><button class="btn" onclick="load()">↻ Làm mới</button> <button class="btn" onclick="logout()">Đăng xuất</button></div></div>
-<div class="stats"><div class="stat"><b id="all">0</b><span>TỔNG YÊU CẦU</span></div><div class="stat"><b id="pending">0</b><span>CHỜ XÁC NHẬN</span></div><div class="stat"><b id="confirmed">0</b><span>ĐÃ XÁC NHẬN</span></div><div class="stat"><b id="today">0</b><span>ĐẶT BÀN HÔM NAY</span></div></div>
-<div class="tablebox"><table><thead><tr><th>KHÁCH</th><th>LIÊN HỆ</th><th>SỐ NGƯỜI</th><th>NGÀY</th><th>GIỜ</th><th>TRẠNG THÁI</th><th>THAO TÁC</th></tr></thead><tbody id="rows"></tbody></table></div></div>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:#080807;
+  color:#eee;
+  font-family:Arial,sans-serif;
+}
+
+.wrap{
+  max-width:1250px;
+  margin:auto;
+  padding:28px 18px;
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #3a3020;
+  padding-bottom:18px;
+}
+
+.brand{
+  font:26px Georgia,serif;
+  letter-spacing:3px;
+  color:#dfc57b;
+}
+
+.sub{
+  color:#888;
+  font-size:12px;
+  margin-top:5px;
+}
+
+.btn{
+  border:1px solid #8d7139;
+  background:#17140f;
+  color:#dfc57b;
+  padding:10px 15px;
+  cursor:pointer;
+}
+
+.btn:hover{
+  background:#211d15;
+}
+
+.login{
+  max-width:420px;
+  margin:110px auto;
+  background:#111;
+  padding:32px;
+  border:1px solid #3a3020;
+}
+
+.login h1{
+  font:32px Georgia,serif;
+}
+
+.input{
+  width:100%;
+  padding:14px;
+  margin:8px 0 16px;
+  background:#0b0b0a;
+  border:1px solid #3a3a36;
+  color:#fff;
+}
+
+.input:focus{
+  outline:none;
+  border-color:#dfc57b;
+}
+
+.gold{
+  color:#dfc57b;
+}
+
+.hidden{
+  display:none !important;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin:25px 0;
+}
+
+.stat{
+  background:#111;
+  border:1px solid #25231f;
+  padding:18px;
+}
+
+.stat b{
+  font-size:25px;
+}
+
+.stat span{
+  display:block;
+  color:#888;
+  font-size:11px;
+  margin-top:5px;
+}
+
+.tablebox{
+  overflow:auto;
+  background:#111;
+  border:1px solid #25231f;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:900px;
+}
+
+th,
+td{
+  padding:14px;
+  border-bottom:1px solid #272522;
+  text-align:left;
+  font-size:13px;
+}
+
+th{
+  color:#dfc57b;
+  font-size:10px;
+  letter-spacing:1px;
+}
+
+.status{
+  padding:5px 8px;
+  border:1px solid #555;
+  font-size:10px;
+}
+
+.pending{
+  color:#e4bd68;
+}
+
+.confirmed{
+  color:#8fd19e;
+}
+
+.rejected{
+  color:#e48b8b;
+}
+
+.completed{
+  color:#9ab9df;
+}
+
+.actions button{
+  margin:2px;
+}
+
+.empty{
+  text-align:center;
+  color:#777;
+  padding:45px;
+}
+
+.error{
+  color:#e88989;
+  min-height:20px;
+}
+
+.loading{
+  text-align:center;
+  color:#888;
+  padding:30px;
+}
+
+@media(max-width:700px){
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .top{
+    gap:15px;
+    flex-wrap:wrap;
+  }
+
+  .brand{
+    font-size:20px;
+  }
+
+  .login{
+    margin:50px 15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     KHU VỰC ĐĂNG NHẬP
+========================= -->
+<div id="login" class="login">
+
+  <div class="gold">
+    TRUNGHIEU FOOD
+  </div>
+
+  <h1>
+    Quản lý đặt bàn
+  </h1>
+
+  <p style="color:#888">
+    Đăng nhập khu vực dành cho chủ website.
+  </p>
+
+  <input
+    id="password"
+    class="input"
+    type="password"
+    placeholder="Mật khẩu admin"
+    autocomplete="current-password"
+  >
+
+  <button
+    id="loginButton"
+    class="btn"
+    style="width:100%"
+    type="button"
+  >
+    ĐĂNG NHẬP
+  </button>
+
+  <p id="loginMsg" class="error"></p>
+
+</div>
+
+
+<!-- =========================
+     KHU VỰC ADMIN
+========================= -->
+<div id="app" class="wrap hidden">
+
+  <div class="top">
+
+    <div>
+      <div class="brand">
+        TRUNGHIEU FOOD
+      </div>
+
+      <div class="sub">
+        ADMIN • QUẢN LÝ ĐẶT BÀN
+      </div>
+    </div>
+
+    <div>
+
+      <button
+        id="refreshButton"
+        class="btn"
+        type="button"
+      >
+        ↻ Làm mới
+      </button>
+
+      <button
+        id="logoutButton"
+        class="btn"
+        type="button"
+      >
+        Đăng xuất
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       THỐNG KÊ
+  ========================== -->
+  <div class="stats">
+
+    <div class="stat">
+      <b id="all">0</b>
+      <span>TỔNG YÊU CẦU</span>
+    </div>
+
+    <div class="stat">
+      <b id="pending">0</b>
+      <span>CHỜ XÁC NHẬN</span>
+    </div>
+
+    <div class="stat">
+      <b id="confirmed">0</b>
+      <span>ĐÃ XÁC NHẬN</span>
+    </div>
+
+    <div class="stat">
+      <b id="today">0</b>
+      <span>ĐẶT BÀN HÔM NAY</span>
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       DANH SÁCH ĐẶT BÀN
+  ========================== -->
+  <div class="tablebox">
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>KHÁCH</th>
+          <th>LIÊN HỆ</th>
+          <th>SỐ NGƯỜI</th>
+          <th>NGÀY</th>
+          <th>GIỜ</th>
+          <th>TRẠNG THÁI</th>
+          <th>THAO TÁC</th>
+        </tr>
+      </thead>
+
+      <tbody id="rows">
+        <tr>
+          <td colspan="7" class="loading">
+            Đang tải dữ liệu...
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+
 <script>
-const labels={pending:'Chờ xác nhận',confirmed:'Đã xác nhận',rejected:'Từ chối',completed:'Hoàn thành'};
-async function api(url,opt={}){const r=await fetch(url,opt);const d=await r.json();if(!r.ok)throw Error(d.message||'Lỗi');return d}
-async function check(){const d=await api('/api/admin/me');if(d.loggedIn){login.classList.add('hidden');app.classList.remove('hidden');load()}}
-async function login(){loginMsg.textContent='';try{await api('/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:password.value})});login.classList.add('hidden');app.classList.remove('hidden');load()}catch(e){loginMsg.textContent=e.message}}
-async function logout(){await api('/api/admin/logout',{method:'POST'});location.reload()}
-async function load(){try{const data=await api('/api/bookings');const todayStr=new Date().toISOString().slice(0,10);all.textContent=data.length;pending.textContent=data.filter(x=>x.status==='pending').length;confirmed.textContent=data.filter(x=>x.status==='confirmed').length;today.textContent=data.filter(x=>x.date===todayStr).length;rows.innerHTML=data.length?data.map(x=>`<tr><td><b>${esc(x.name)}</b><br><small style="color:#777">${new Date(x.createdAt).toLocaleString('vi-VN')}</small></td><td>${esc(x.phone)}<br><small style="color:#777">${esc(x.email||'')}</small></td><td>${x.guests}</td><td>${x.date}</td><td>${x.time}</td><td><span class="status ${x.status}">${labels[x.status]||x.status}</span></td><td class="actions"><button class="btn" onclick="setStatus('${x.id}','confirmed')">✓</button><button class="btn" onclick="setStatus('${x.id}','rejected')">✕</button><button class="btn" onclick="setStatus('${x.id}','completed')">✓✓</button><button class="btn" onclick="removeBooking('${x.id}')">🗑</button></td></tr>`).join(''):'<tr><td colspan="7" class="empty">Chưa có yêu cầu đặt bàn nào.</td></tr>'}catch(e){alert(e.message)}}
-async function setStatus(id,status){await api('/api/bookings/'+id,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({status})});load()}
-async function removeBooking(id){if(confirm('Xóa yêu cầu đặt bàn này?')){await api('/api/bookings/'+id,{method:'DELETE'});load()}}
-function esc(v){return String(v||'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}check();
-</script></body></html>
+
+/* =========================================
+   LẤY CÁC PHẦN TỬ HTML
+   Không dùng trực tiếp biến "login", "app",
+   "password", "rows"... để tránh lỗi undefined.
+========================================= */
+
+const loginBox = document.getElementById('login');
+const appBox = document.getElementById('app');
+
+const passwordInput = document.getElementById('password');
+const loginMsg = document.getElementById('loginMsg');
+const loginButton = document.getElementById('loginButton');
+
+const refreshButton = document.getElementById('refreshButton');
+const logoutButton = document.getElementById('logoutButton');
+
+const allCount = document.getElementById('all');
+const pendingCount = document.getElementById('pending');
+const confirmedCount = document.getElementById('confirmed');
+const todayCount = document.getElementById('today');
+
+const rows = document.getElementById('rows');
+
+
+/* =========================================
+   NHÃN TRẠNG THÁI
+========================================= */
+
+const labels = {
+  pending: 'Chờ xác nhận',
+  confirmed: 'Đã xác nhận',
+  rejected: 'Từ chối',
+  completed: 'Hoàn thành'
+};
+
+
+/* =========================================
+   HÀM GỌI API
+========================================= */
+
+async function api(url, opt = {}) {
+
+  const response = await fetch(url, {
+    credentials: 'same-origin',
+    ...opt
+  });
+
+  let data;
+
+  try {
+    data = await response.json();
+  } catch (error) {
+    throw new Error('Server không trả về dữ liệu hợp lệ.');
+  }
+
+  if (!response.ok) {
+    throw new Error(data.message || 'Có lỗi xảy ra.');
+  }
+
+  return data;
+}
+
+
+/* =========================================
+   HIỂN THỊ TRANG ADMIN
+========================================= */
+
+function showAdmin() {
+
+  loginBox.classList.add('hidden');
+  appBox.classList.remove('hidden');
+
+}
+
+
+/* =========================================
+   HIỂN THỊ TRANG LOGIN
+========================================= */
+
+function showLogin() {
+
+  appBox.classList.add('hidden');
+  loginBox.classList.remove('hidden');
+
+}
+
+
+/* =========================================
+   KIỂM TRA ĐĂNG NHẬP
+========================================= */
+
+async function check() {
+
+  try {
+
+    const data = await api('/api/admin/me');
+
+    if (data && data.loggedIn) {
+
+      showAdmin();
+
+      await load();
+
+    } else {
+
+      showLogin();
+
+    }
+
+  } catch (error) {
+
+    console.error('Lỗi kiểm tra đăng nhập:', error);
+
+    showLogin();
+
+  }
+
+}
+
+
+/* =========================================
+   ĐĂNG NHẬP ADMIN
+========================================= */
+
+async function loginAdmin() {
+
+  loginMsg.textContent = '';
+
+  const password = passwordInput.value.trim();
+
+  if (!password) {
+
+    loginMsg.textContent = 'Vui lòng nhập mật khẩu.';
+
+    passwordInput.focus();
+
+    return;
+
+  }
+
+  loginButton.disabled = true;
+  loginButton.textContent = 'ĐANG ĐĂNG NHẬP...';
+
+  try {
+
+    await api('/api/admin/login', {
+
+      method: 'POST',
+
+      headers: {
+        'Content-Type': 'application/json'
+      },
+
+      body: JSON.stringify({
+        password: password
+      })
+
+    });
+
+    passwordInput.value = '';
+
+    showAdmin();
+
+    await load();
+
+  } catch (error) {
+
+    console.error('Lỗi đăng nhập:', error);
+
+    loginMsg.textContent =
+      error.message || 'Mật khẩu không đúng hoặc máy chủ có lỗi.';
+
+  } finally {
+
+    loginButton.disabled = false;
+    loginButton.textContent = 'ĐĂNG NHẬP';
+
+  }
+
+}
+
+
+/* =========================================
+   ĐĂNG XUẤT
+========================================= */
+
+async function logoutAdmin() {
+
+  try {
+
+    await api('/api/admin/logout', {
+      method: 'POST'
+    });
+
+  } catch (error) {
+
+    console.error('Lỗi đăng xuất:', error);
+
+  }
+
+  location.reload();
+
+}
+
+
+/* =========================================
+   TẢI DANH SÁCH ĐẶT BÀN
+========================================= */
+
+async function load() {
+
+  rows.innerHTML = `
+    <tr>
+      <td colspan="7" class="loading">
+        Đang tải dữ liệu...
+      </td>
+    </tr>
+  `;
+
+  try {
+
+    const data = await api('/api/bookings');
+
+    if (!Array.isArray(data)) {
+      throw new Error('Dữ liệu đặt bàn không hợp lệ.');
+    }
+
+    const todayStr =
+      new Date().toISOString().slice(0, 10);
+
+
+    /* =========================
+       THỐNG KÊ
+    ========================== */
+
+    allCount.textContent = data.length;
+
+    pendingCount.textContent =
+      data.filter(function(item) {
+        return item.status === 'pending';
+      }).length;
+
+    confirmedCount.textContent =
+      data.filter(function(item) {
+        return item.status === 'confirmed';
+      }).length;
+
+    todayCount.textContent =
+      data.filter(function(item) {
+        return item.date === todayStr;
+      }).length;
+
+
+    /* =========================
+       KHÔNG CÓ ĐẶT BÀN
+    ========================== */
+
+    if (data.length === 0) {
+
+      rows.innerHTML = `
+        <tr>
+          <td colspan="7" class="empty">
+            Chưa có yêu cầu đặt bàn nào.
+          </td>
+        </tr>
+      `;
+
+      return;
+
+    }
+
+
+    /* =========================
+       HIỂN THỊ ĐẶT BÀN
+    ========================== */
+
+    rows.innerHTML = data.map(function(x) {
+
+      const createdAt = x.createdAt
+        ? new Date(x.createdAt).toLocaleString('vi-VN')
+        : '';
+
+      const statusText =
+        labels[x.status] || x.status || 'Không xác định';
+
+      const safeId =
+        encodeURIComponent(String(x.id || ''));
+
+      return `
+        <tr>
+
+          <td>
+            <b>${esc(x.name)}</b>
+            <br>
+            <small style="color:#777">
+              ${esc(createdAt)}
+            </small>
+          </td>
+
+          <td>
+            ${esc(x.phone)}
+            <br>
+            <small style="color:#777">
+              ${esc(x.email || '')}
+            </small>
+          </td>
+
+          <td>
+            ${esc(x.guests)}
+          </td>
+
+          <td>
+            ${esc(x.date)}
+          </td>
+
+          <td>
+            ${esc(x.time)}
+          </td>
+
+          <td>
+            <span class="status ${esc(x.status || '')}">
+              ${esc(statusText)}
+            </span>
+          </td>
+
+          <td class="actions">
+
+            <button
+              class="btn"
+              type="button"
+              onclick="setStatus(decodeURIComponent('${safeId}'),'confirmed')"
+              title="Xác nhận"
+            >
+              ✓
+            </button>
+
+            <button
+              class="btn"
+              type="button"
+              onclick="setStatus(decodeURIComponent('${safeId}'),'rejected')"
+              title="Từ chối"
+            >
+              ✕
+            </button>
+
+            <button
+              class="btn"
+              type="button"
+              onclick="setStatus(decodeURIComponent('${safeId}'),'completed')"
+              title="Hoàn thành"
+            >
+              ✓✓
+            </button>
+
+            <button
+              class="btn"
+              type="button"
+              onclick="removeBooking(decodeURIComponent('${safeId}'))"
+              title="Xóa"
+            >
+              🗑
+            </button>
+
+          </td>
+
+        </tr>
+      `;
+
+    }).join('');
+
+
+  } catch (error) {
+
+    console.error('Lỗi tải đặt bàn:', error);
+
+    rows.innerHTML = `
+      <tr>
+        <td colspan="7" class="empty">
+          Không thể tải danh sách đặt bàn.
+          <br>
+          <small style="color:#e88989">
+            ${esc(error.message)}
+          </small>
+        </td>
+      </tr>
+    `;
+
+  }
+
+}
+
+
+/* =========================================
+   ĐỔI TRẠNG THÁI ĐẶT BÀN
+========================================= */
+
+async function setStatus(id, status) {
+
+  if (!id) {
+    alert('Không tìm thấy mã đặt bàn.');
+    return;
+  }
+
+  try {
+
+    await api('/api/bookings/' + encodeURIComponent(id), {
+
+      method: 'PATCH',
+
+      headers: {
+        'Content-Type': 'application/json'
+      },
+
+      body: JSON.stringify({
+        status: status
+      })
+
+    });
+
+    await load();
+
+  } catch (error) {
+
+    console.error('Lỗi cập nhật trạng thái:', error);
+
+    alert(error.message || 'Không thể cập nhật trạng thái.');
+
+  }
+
+}
+
+
+/* =========================================
+   XÓA ĐẶT BÀN
+========================================= */
+
+async function removeBooking(id) {
+
+  if (!id) {
+    alert('Không tìm thấy mã đặt bàn.');
+    return;
+  }
+
+  if (!confirm('Xóa yêu cầu đặt bàn này?')) {
+    return;
+  }
+
+  try {
+
+    await api('/api/bookings/' + encodeURIComponent(id), {
+
+      method: 'DELETE'
+
+    });
+
+    await load();
+
+  } catch (error) {
+
+    console.error('Lỗi xóa đặt bàn:', error);
+
+    alert(error.message || 'Không thể xóa đặt bàn.');
+
+  }
+
+}
+
+
+/* =========================================
+   ESC HTML
+   Chống lỗi khi dữ liệu khách chứa ký tự đặc biệt.
+========================================= */
+
+function esc(value) {
+
+  return String(value ?? '').replace(
+    /[&<>'"]/g,
+    function(character) {
+
+      return {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        "'": '&#39;',
+        '"': '&quot;'
+
+      }[character];
+
+    }
+  );
+
+}
+
+
+/* =========================================
+   GẮN SỰ KIỆN CHO NÚT
+========================================= */
+
+loginButton.addEventListener(
+  'click',
+  loginAdmin
+);
+
+refreshButton.addEventListener(
+  'click',
+  load
+);
+
+logoutButton.addEventListener(
+  'click',
+  logoutAdmin
+);
+
+
+/* =========================================
+   CHO PHÉP NHẤN ENTER ĐỂ ĐĂNG NHẬP
+========================================= */
+
+passwordInput.addEventListener(
+  'keydown',
+  function(event) {
+
+    if (event.key === 'Enter') {
+
+      event.preventDefault();
+
+      loginAdmin();
+
+    }
+
+  }
+);
+
+
+/* =========================================
+   KHỞI ĐỘNG
+========================================= */
+
+check();
+
+</script>
+
+</body>
+</html>
